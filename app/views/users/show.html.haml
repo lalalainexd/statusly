@@ -1,0 +1,23 @@
+%h1 #{@user.username}'s Page
+
+= form_for @status, remote: true do |f|
+  = f.text_area :text
+  = f.submit
+
+%ul
+  - @user.statuses.each do |status|
+    %li
+      = status.text
+
+= content_for :extra_scripts do
+  = javascript_include_tag "http://localhost:9292/faye.js"
+
+  :javascript
+    $(function(){
+      var faye = new Faye.Client('http://localhost:9292/faye');
+
+      faye.subscribe("/#{@user.username}/status", function(data){
+        console.log("woop woop");
+      });
+
+    });

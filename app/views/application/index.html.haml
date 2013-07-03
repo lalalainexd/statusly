@@ -1,0 +1,15 @@
+%h1 Statusly
+%h2 Register
+= form_for @user do |f|
+  .fieldset
+    = f.label :username
+    = f.text_field :username
+  .fieldset
+    = f.label :password
+    = f.password_field :password
+  .fieldset
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  .fieldset
+    = f.submit
+
