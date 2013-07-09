@@ -6,9 +6,9 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'faye'
 gem 'sorcery'
 gem 'haml'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
