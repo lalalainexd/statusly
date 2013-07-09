@@ -10,10 +10,8 @@
 
 <% if logged_in? %>
   <%= link_to "logout of #{current_user.username}", logout_path %>
-  <%= yield %>
-<% else %>
-  <%= render 'login' %>
 <% end %>
+<%= yield %>
 
 <%= yield :extra_scripts%>
 

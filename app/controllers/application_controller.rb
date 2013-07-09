@@ -3,8 +3,10 @@ class ApplicationController < ActionController::Base
   def index
     if logged_in?
       @status = Status.new
+      render "index"
     else
       @user = User.new
+      render "login"
     end
   end
 end
