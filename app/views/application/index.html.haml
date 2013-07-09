@@ -1,25 +1,40 @@
-%h1 Statusly
-%h2 Register
-= form_for @user do |f|
-  .fieldset
-    = f.label :username
-    = f.text_field :username
-  .fieldset
-    = f.label :password
-    = f.password_field :password
-  .fieldset
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
-  .fieldset
-    = f.submit
-%h2
-= form_tag sessions_path do
-  .fieldset
-    = label_tag :username
-    = text_field_tag :username
-  .fieldset
-    = label_tag  :password
-    = password_field_tag  :password
-  .fieldset
-    = submit_tag
+%h1 #{current_user.username}'s Page
+
+%h2 Pending Friend Requests
+
+- if current_user.pending_requests.empty?
+  You have no pending requests
+-else
+  %ul
+    - current_user.pending_requests.each do |request|
+      %li
+        =request.requestor.username
+        =button_to "Accept Request", accept_request_path(user: request.requestor)
+
+
+%h2 Your Statuses
+= form_for @status, remote: true do |f|
+  = f.text_area :text
+  = f.submit
+
+%ul#statuses
+  - current_user.statuses.each do |status|
+    %li
+      = status.text
+
+%h2 Feed
+- if current_user.feed
+  - if current_user.feed_items.empty?
+    Your feed is empty!
+  - else
+    %ul#feed
+      - current_user.feed_items.each do |item|
+        %li{data:{timestamp: "#{item.created_at}"}} #{item.user.username}: #{item.text}
+-else
+  You don't have a feed!
+
+= content_for :extra_scripts do
+  = javascript_include_tag "post_status"
+  = javascript_include_tag "update_feed"
+
 

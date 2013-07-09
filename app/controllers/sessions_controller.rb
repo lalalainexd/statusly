@@ -8,4 +8,9 @@ class SessionsController < ApplicationController
       redirect_back_or_to root_path
     end
   end
+
+  def destroy
+    logout
+    redirect_to root_path
+  end
 end

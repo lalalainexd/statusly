@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @status = Status.new
     @user = User.find_by_id(params[:id])
   end
 end

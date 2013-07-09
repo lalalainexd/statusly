@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :statuses, order: 'created_at DESC'
   has_one :feed
   has_many :feed_sources, through: :feed
+  has_many :pending_requests
 
   def self.create_with_password(username, password, password_confirmation)
     User.create do |user|
@@ -32,4 +33,5 @@ class User < ActiveRecord::Base
     feed_items.flatten!
     feed_items.sort_by {|item| item.created_at}.reverse
   end
+
 end

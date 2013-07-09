@@ -8,7 +8,12 @@
 </head>
 <body>
 
-<%= yield %>
+<% if logged_in? %>
+  <%= link_to "logout of #{current_user.username}", logout_path %>
+  <%= yield %>
+<% else %>
+  <%= render 'login' %>
+<% end %>
 
 <%= yield :extra_scripts%>
 

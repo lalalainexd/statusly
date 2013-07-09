@@ -1,31 +1,8 @@
 %h1 #{@user.username}'s Page
 
 - if @user != current_user
-  = button_to('follow', action: :create, controller: 'feeds', user: @user)
-
--if @user == current_user
-  %h2 Statuses
-  = form_for @status, remote: true do |f|
-    = f.text_area :text
-    = f.submit
-
-%ul#statuses
-  - @user.statuses.each do |status|
-    %li
-      = status.text
-
--if @user == current_user
-  %h2 Feed
-  - if current_user.feed
-    %ul#feed
-      - current_user.feed_items.each do |item|
-        %li{data:{timestamp: "#{item.created_at}"}} #{item.user.username}: #{item.text}
-  -else
-    You don't have a feed!
-
-= content_for :extra_scripts do
-  - if @user == current_user
-    = javascript_include_tag "post_status"
-  = javascript_include_tag "update_feed"
-
+  = button_to('follow', action: :create, controller: 'pending_requests', user: @user)
+- else
+  This is your profile page.
+  = link_to "Go to your feed.", root_path
 
