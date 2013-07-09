@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     feed_items = []
     feed.feed_sources.each do |source|
       if after
-        after = Time.parse(after)+1
+        after = Time.parse(after.to_s)+1
         feed_items << source.user.statuses.where("created_at > ?", after)
       else
         feed_items << source.user.statuses
